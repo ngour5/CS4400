@@ -1,2 +1,2 @@
 # CS4400
-Trip Planner Web App
+Trip Planner Web App Group Project
