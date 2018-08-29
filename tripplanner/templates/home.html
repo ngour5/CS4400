@@ -1,0 +1,16 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+
+<h1>My Trips <a class="btn btn-sm btn-outline-primary" href="{{ url_for('create_trip') }}">Create trip</a></h1>
+{% if not trips%}
+<p>You don't have any trips.  Why don't you <a href="{{ url_for('create_trip') }}">create one now</a>?</p>
+{% else %}
+<p>Woohoo!  You're going to...</p>
+<ul class="list-group">
+    {% for trip in trips %}
+    <li class="list-group-item"><a href="{{ url_for('edit_trip', trip_id=trip.trip_id) }}">{{ trip.city }} on {{ trip.start_date }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+<h1>Trip to {{ trip.city }} on {{ trip.start_date }}</h1>
+<h2>Activities on this trip</h2>
+{% if not activities %}
+<div class="alert alert-primary" role="alert">
+    You haven't added any activities to this trip.
+</div>
+{% endif %}
+{% for act in activities %}
+<div class="card" style="width: 56rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ act.name }}</h5>
+        <p class="card-text"> Visit from {{ act.start_date_time }} to {{ act.end_date_time }}</p>
+      </div>
+        {% if trip_in_past %}
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+              <a href="{{ url_for('review_attraction', attraction_id=act.attraction_id) }}">Review this attraction</a>
+          </li>
+          {% endif %}
+      </ul>
+    </div>
+    <br />
+{% endfor %}
+
+<h2>Available attractions</h2>
+
+{% for attr in attractions %}
+    <div class="card" style="width: 56rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{attr.name}}</h5>
+        <p class="card-text">{{ attr.description}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item">Hours of Operation: </li>
+          <li class="list-group-item">Price: {% if attr.price == 0%}Free{% else %}{{ attr.price }}€{% endif %}</li>
+          <li class="list-group-item">Address: {%  if attr.street_number != none  %} {{attr.street_number }} {% endif %}
+              {{ attr.street }}, {{ attr.city }} {%  if attr.state != none  %} {{attr.state}} {% endif %} {{ attr.zip }}
+              {{ attr.country }}</li>
+          <li class="list-group-item">Closest Transit Stop: {{ attr.transit_stop }}</li>
+          <li class="list-group-item">
+              <a href="{{ url_for('attraction_reviews', attr_id=attr.attraction_id) }}">See reviews</a>
+          </li>
+      </ul>
+
+      <div class="card-body">
+         {% if not trip_in_past %}
+         <form action="{{ url_for('create_activity',trip_id=trip.trip_id, attraction_id=attr.attraction_id) }}" method="POST">
+             <div class="form-group">
+                 <label for="start-dt">Start of your visit</label>
+                 <input type="datetime-local" required
+                        class="form-control" name="start_dt" id="start-dt">
+             </div>
+             <div class="form-group">
+                 <label for="end-dt">End of your visit</label>
+                 <input type="datetime-local" required
+                        class="form-control" name="end_dt" id="end-dt">
+             </div>
+             <button class="btn btn-primary " type="submit">Add to trip</button>
+        </form>
+        {% else %}
+          <p>You can't add activities to this trip because it's in the past.</p>
+          {% endif %}
+      </div>
+    </div>
+    <br />
+{% endfor %}
+
+{% endblock %}

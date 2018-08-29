@@ -1,0 +1,100 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+{% if attraction %}
+
+{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="row"></div>
+        <h1>{% if attraction %} Edit {{attraction.name}}{% else %}Create an Attraction{%endif%}</h1>
+        <p>{% if attraction %} Fill out this form to edit {{attraction.name}}{% else %}Fill out this form to add a
+            new attraction! {%endif%}</p>
+
+        <form action="{% if attraction %} {{url_for('edit_attraction', attraction_id=attraction.attraction_id) }}{% else %} {{url_for('create_attraction') }}{%endif%}"
+              method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Attraction Info</h2>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control"
+                               value="{{ attraction.name if attraction }}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea rows="3" name="description" id="description" class="form-control"
+                                  value="{{attraction.description if attraction}}"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="price">Price</label>
+                            <div class="input-group mb-3">
+                                <input type="number" name="price" id="price" class="form-control"
+                                       value="{{attraction.price if attraction}}" min="0" step="0.01"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="transit">Nearest Transit Stop (optional)</label>
+                            <input type="text" name="transit" id="transit" class="form-control"
+                                   value="{{attraction.transit_stop if attraction and attraction.transit_stop}}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2>Address</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="street_num">Street number</label>
+                                    <input type="number" name="street_num" class="form-control" id="street_num"
+                                           value="{{attraction.street_number if attraction}}">
+                                </div>
+
+                                <div class="form-group col-md-9">
+                                    <label for="street">Street</label>
+                                    <input type="text" name="street" class="form-control" id="street"
+                                           value="{{attraction.street if attraction}}">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="city">City</label>
+                            <input type="text" name="city" class="form-control" id="city"
+                                   value="{{attraction.city if attraction}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="state">State</label>
+                            <input type="text" name="state" class="form-control" id="state"
+                                   value="{{attraction.state if attraction}}">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="zip">Zip Code</label>
+                            <input type="number" name="zip" class="form-control" id="zip"
+                                   value="{{attraction.zip if attraction}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="country">Country</label>
+                            <input type="text" name="country" class="form-control" id="country"
+                                   value="{{attraction.country if attraction}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input class="btn btn-primary" type="submit"/>
+        </form>
+    </div>
+</div>
+{% endblock %}

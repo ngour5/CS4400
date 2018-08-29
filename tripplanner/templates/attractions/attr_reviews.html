@@ -1,0 +1,19 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="row"></div>
+        <h1>Reviews for {{ attr.name }}</h1>
+
+        <ul class="list-group">
+            {% if not reviews %}
+            <li class="list-group-item">No one's reviewed this attraction yet</li>
+            {% endif %}
+            {% for r in reviews %}
+            <li class="list-group-item"><strong>{{ r.title }}</strong><br />{{ r.body }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+<h1>Create a Trip</h1>
+<p>Fill out this form and you'll be going places!</p>
+
+<form action="{{ url_for('create_trip') }}" method="POST">
+    <div class="form-group w-25">
+        <label for="city">What city are you going to?</label>
+        <select name="city" id="city" class="form-control">
+            <option style="display: none">Paradise!</option>
+            {% for city in city_ids %}
+            <option value="{{ city.city }}"> {{city.city}} </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group w-25">
+        <label for="date">When does this trip start?</label>
+        <input type="date" name="start_date" id="date" class="form-control" />
+    </div>
+    <div class="form-group w-25">
+        <label for="credit_card">Which credit card do you want to use to pay for this trip?</label>
+        <select name="credit_card" id="credit_card" class="form-control">
+            <option style="display: none">Select a credit card...</option>
+            {% for cc in cc_ids %}
+            <option value="{{ cc.credit_card_id }}">{{ cc.cc_number }} (expires {{ cc.expiry.strftime('%m/%y') }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+{% endblock %}

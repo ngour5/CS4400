@@ -1,0 +1,11 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+<h1>{{ error }}</h1>
+<p>{{ desc }}</p>
+{% if code == 500%}
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/t3otBjVZzT0?rel=0&amp;showinfo=0"
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+{% endif %}
+
+{% endblock %}

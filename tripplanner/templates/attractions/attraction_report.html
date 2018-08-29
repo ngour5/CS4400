@@ -1,0 +1,57 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+    <div class="col-md-6 offset-md-3">
+    <h1>Attraction Report</h1>
+
+    {% if requires_reservation %}
+
+    <h2>Reservations for {{ date }}</h2>
+
+    <form action="{{ url_for('attraction_report', attraction_id=attraction.attraction_id) }}" method="GET">
+        <div class="form-group">
+            <label for="res-date">Show reservations for a specific date</label>
+            <input type="date" class="form-control" name="date" id="res-date" />
+        </div>
+        <div class="form-group">
+            <label for="time-slot">Time slot to show</label>
+            <select name="ts" class="form-control" id="time-slot">
+                <option style="display:none">Select a time slot...</option>
+                {% for ts in time_slots %}
+                <option value="{{ ts.time_slot_id }}">{{ ts.start_time }} - {{ ts.end_time }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-sm btn-outline-primary">Go</button>
+    </form>
+    <br />
+    <p>Showing reservations for the {{ selected_ts.start_time }} - {{ selected_ts.end_time }} time slot</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for res in reservations %}
+            <tr>
+                <td>{{ res.res_num }}</td>
+                <td>{{ res['u.name'] }}</td>
+            </tr>
+            {% endfor %}
+
+        {% if not reservations %}
+            <tr>
+                <td colspan="2">There are no reservations booked for this time slot.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <p>Nothing to see here...</p>
+    <p>This attraction doesn't require reservations.</p>
+    {% endif  %}
+</div>
+{% endblock %}

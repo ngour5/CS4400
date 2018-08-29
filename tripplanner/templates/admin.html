@@ -1,0 +1,68 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+<h1>Users <a href="{{ url_for('register') }}" class="btn btn-sm btn-outline-primary">Create user</a></h1>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Suspended</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users%}
+        <tr>
+            <td>{{ user.user_id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{% if user.is_admin == 1 %}Admin{% else %}User{% endif %}</td>
+            <td>{% if user.suspended == 1 %}Suspended{% else %}Active{% endif %}</td>
+            <td><a class="text-body" href="{{ url_for('profile', user_id=user.user_id) }}"><i class="material-icons">edit</i></a>
+                <a class="text-body" href="{{ url_for('delete_user', user_id=user.user_id) }}"><i class="material-icons">delete</i></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h1>Attractions <a href="{{ url_for('create_attraction') }}" class="btn btn-sm btn-outline-primary">Create attraction</a></h1>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Public Transit</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in attractions %}
+        <tr>
+            <td>{{ a.attraction_id }}</td>
+            <td>{{ a.name }}</td>
+            <td>{% if a.street_number %}{{ a.street_number }} {% endif %}{{ a.street }}
+                <br />
+                {{ a.city }}{% if a.state %}, {{ a.state }}{%endif%}, {{ a.country }} {{ a.zip }}
+            </td>
+
+            <td>{{ a.transit_stop if a.transit_stop }}</td>
+            <td>{% if a.price == 0%}Free{% else %}{{ a.price }}€{% endif %}</td>
+            <td>
+                {% if res_info[loop.index0]['res_req'] %}
+                <abbr title="View this attraction's reservations"><a class="text-body" href="{{ url_for('attraction_report', attraction_id=a.attraction_id) }}"><i class="material-icons">description</i></a></abbr> {% endif %}
+                <abbr title="Edit this attraction"><a class="text-body" href="{{ url_for('edit_attraction', attraction_id=a.attraction_id) }}"><i class="material-icons">edit</i></a></abbr>
+                <abbr title="Delete this attraction"><a href="{{ url_for('delete_attraction', attraction_id=a.attraction_id) }}" class="text-body"><i class="material-icons">delete</i></a></abbr>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

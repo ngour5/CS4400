@@ -1,0 +1,108 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+<h1>Create an account</h1>
+<p>Welcome!  We need some information in order to create your account.</p>
+<form action="/register" method="post">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Signing in</h3>
+            <label for="email">Email address</label>
+            <input type="email" name="email" class="form-control" id="email" required/>
+
+            <div class="form-group">
+                <label for="email-confirm">Confirm email address</label>
+                <input type="email" name="email_confirm" class="form-control" id="email-confirm" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" required />
+            </div>
+            <div class="form-group">
+                <label for="password-confirm">Confirm password</label>
+                <input type="password" name="password_confirm" class="form-control" id="password-confirm" required />
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <h3>About you</h3>
+            <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="full-name">Full name</label>
+                  <input type="text" name="full_name" id="full-name" class="form-control" placeholder="" required />
+                </div>
+            </div>
+            <h4>Address</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="street-number">Street number</label>
+                            <input type="number" name="address_snum" id="street-number" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label for="street">Street</label>
+                            <input type="text" name="address_street" id="street" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="city">City</label>
+                            <input type="text" name="address_city" id="city" class="form-control" required />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="state">State</label>
+                            <input type="text" name="address_state" id="state" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="zip">ZIP Code</label>
+                            <input type="number" name="address_zip" id="zip" class="form-control" required />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="country">Country</label>
+                            <input type="text" name="address_country" id="country" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Credit Card</h3>
+            <label for="cardholder-name">Cardholder's Name</label>
+            <input type="text" name="cc_name" class="form-control" id="cardholder-name" required/>
+
+            <div class="form-group">
+                <label for="card-number">Credit Card Number</label>
+                <input type="text" name="cc_number" class="form-control" id="card-number" maxlength="16" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="card-cvv">CVV</label>
+                <input type="password" name="cc_cvv" class="form-control" id="card-cvv" placeholder="---" maxlength="3" required />
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label for="card-expiry-month">Expiry Month</label>
+                    <input type="number" name="cc_expiry_month" class="form-control" id="card-expiry-month" placeholder="--" min="1" max="12" required />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="card-expiry-year">Expiry Year</label>
+                    <input type="number" name="cc_expiry_year" class="form-control" id="card-expiry-year" placeholder="----" maxlength="4" min="2018" required />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" />
+    </div>
+</form>
+{% endblock %}

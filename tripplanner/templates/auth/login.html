@@ -1,0 +1,25 @@
+{% extends "include/page.html" %}
+
+{% block content %}
+<div class="col-md-4 offset-md-4">
+
+    <h1>Sign in</h1>
+    <p>Welcome back! Enter your email and password to continue.</p>
+
+    <form action="{{ url_for('login') }}" method="post">
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" name="username" class="form-control" id="email" required/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" id="password" required/>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit"/>
+        </div>
+    </form>
+    <a href="{{ url_for('register') }}">Create an account</a>
+</div>
+
+{% endblock %}
